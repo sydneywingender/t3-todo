@@ -1,15 +1,24 @@
 import {
   CheckCircle2,
   LayoutList,
+  Moon,
   Pencil,
+  Sun,
   Trash,
   User,
   XCircle,
 } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
 import { Checkbox } from "~/components/ui/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 import { Input } from "~/components/ui/input";
 import { toast } from "~/components/ui/use-toast";
 import { api } from "~/utils/api";
@@ -189,18 +198,39 @@ export default function Home() {
 }
 
 export function Header() {
+  const { setTheme } = useTheme();
+
   return (
     <header className="flex w-full items-center justify-between border-b px-4 py-4 shadow-sm">
       <Button variant="ghost" className="cursor-default rounded-full">
         <h2 className="flex items-center gap-2 text-xl font-bold">
           <LayoutList />
-          T3 To-Do App
+          To-Do App
         </h2>
       </Button>
 
-      <Button variant="ghost" className="rounded-full">
-        <User />
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" size="icon" className="rounded-full">
+            <User />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuItem
+            className="flex gap-2"
+            onClick={() => setTheme("light")}
+          >
+            <Sun className="h-5 w-5" />
+            Light mode
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="flex gap-2"
+            onClick={() => setTheme("dark")}
+          >
+            <Moon className="h-5 w-5" /> Dark mode
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </header>
   );
 }
