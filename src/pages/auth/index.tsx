@@ -1,5 +1,5 @@
 import { useSessionContext, useUser } from "@supabase/auth-helpers-react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -95,7 +95,11 @@ export default function Auth() {
             </CardContent>
             <CardFooter className="flex">
               <Button type="submit" className="w-full">
-                {isLoading ? "Loading..." : "Send magic link"}
+                {isLoading ? (
+                  <Loader2 className="animate-spin" />
+                ) : (
+                  "Send magic link"
+                )}
               </Button>
             </CardFooter>
           </form>

@@ -13,4 +13,5 @@ model Task {
     updatedAt   DateTime @updatedAt
     title       String
     isCompleted Boolean  @default(false)
+    userId      String
 }
