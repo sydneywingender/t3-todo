@@ -8,14 +8,16 @@ type LogoProps = {
 
 export default function Logo({ classNames }: LogoProps) {
   return (
-    <Button
-      variant="ghost"
-      className={cn("cursor-default rounded-full bg-accent", classNames)}
-    >
-      <h2 className="flex items-center gap-2">
+    <div className="w-auto">
+      <div
+        className={cn(
+          "flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-violet-300 to-purple-200 px-6 py-2 text-primary",
+          classNames
+        )}
+      >
         <LayoutList />
-        To-Do App
-      </h2>
-    </Button>
+        <h2>To-Do App</h2>
+      </div>
+    </div>
   );
 }

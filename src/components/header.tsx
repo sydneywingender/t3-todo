@@ -24,28 +24,25 @@ export default function Header({ hidden }: HeaderProps) {
   const user = useUser();
   const supabase = useSessionContext().supabaseClient;
 
-  function handleSignOut() {
-    supabase.auth
-      .signOut()
-      .then(() => {
-        toast({
-          description: "Signed out",
-          duration: 1500,
-          action: <CheckCircle2 className="text-green-600" />,
-        });
-        router
-          .push("/auth")
-          .then()
-          .catch((err) => console.log(err));
-      })
-      .catch((err) => {
-        toast({
-          description: "Error signing out",
-          duration: 1500,
-          action: <XCircle className="text-red-600" />,
-        });
-        console.log(err);
+  async function handleSignOut() {
+    try {
+      await supabase.auth.signOut();
+      await router.push("/auth");
+      toast({
+        description: "Signed out successfully",
+        duration: 1500,
+        action: <CheckCircle2 className="text-green-600" />,
       });
+    } catch (error) {
+      toast({
+        description: "Error signing out",
+        duration: 1500,
+        action: <XCircle className="text-red-600" />,
+      });
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+    }
   }
 
   return (

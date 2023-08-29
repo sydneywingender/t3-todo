@@ -1,4 +1,7 @@
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import { CheckCircle2 } from "lucide-react";
+import { useRouter } from "next/router";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import Logo from "~/components/logo";
@@ -13,12 +16,16 @@ import {
 } from "~/components/ui/card";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { toast } from "~/components/ui/use-toast";
 
 type Input = {
   email: string;
 };
 
 export default function Auth() {
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const supabase = useSessionContext().supabaseClient;
   const {
     register,
@@ -26,28 +33,33 @@ export default function Auth() {
     formState: { errors },
   } = useForm<Input>();
 
-  async function signInWithEmail(email: string) {
-    const { data, error } = await supabase.auth.signInWithOtp({
-      email,
-    });
-
-    return { data, error };
-  }
-
   const onSubmit: SubmitHandler<Input> = async (input) => {
-    const { data, error } = await signInWithEmail(input.email);
-    return { data, error };
+    setIsLoading(true);
+    try {
+      await supabase.auth.signInWithOtp({
+        email: input.email,
+      });
+      await router.push("/auth/magic-link-sent");
+      toast({
+        description: "Magic link sent",
+        duration: 1500,
+        action: <CheckCircle2 className="text-green-600" />,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    setIsLoading(false);
   };
 
   return (
     <>
       <div className="flex h-full flex-col items-center justify-center">
+        <Logo classNames="my-8" />
         <Card className="w-full sm:w-[350px]">
           <CardHeader>
-            <Logo classNames="my-4" />
             <CardTitle className="text-xl">Continue with email</CardTitle>
             <CardDescription>
-              {`We'll send you a sign up or login link`}
+              {`We'll send you a link sign up or login`}
             </CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -75,7 +87,7 @@ export default function Auth() {
             </CardContent>
             <CardFooter className="flex">
               <Button type="submit" className="w-full">
-                Send magic link
+                {isLoading ? "Loading..." : "Send magic link"}
               </Button>
             </CardFooter>
           </form>
