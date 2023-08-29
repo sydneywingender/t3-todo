@@ -6,7 +6,7 @@ export const tasksRouter = createTRPCRouter({
     .input(z.object({ userId: z.string().optional() }))
     .query(({ ctx, input }) => {
       return ctx.prisma.task.findMany({
-        where: { userId: input.userId },
+        where: { user_id: input.userId },
         orderBy: { createdAt: "desc" },
       });
     }),
@@ -19,13 +19,19 @@ export const tasksRouter = createTRPCRouter({
       })
     )
     .mutation(({ ctx, input }) => {
-      return ctx.prisma.task.create({ data: input });
+      return ctx.prisma.task.create({
+        data: {
+          title: input.title,
+          user_id: input.userId,
+          isCompleted: input.isCompleted,
+        },
+      });
     }),
   delete: publicProcedure
     .input(z.object({ id: z.string(), userId: z.string().optional() }))
     .mutation(({ ctx, input }) => {
       return ctx.prisma.task.delete({
-        where: { id: input.id, userId: input.userId },
+        where: { id: input.id, user_id: input.userId },
       });
     }),
   update: publicProcedure
@@ -39,7 +45,7 @@ export const tasksRouter = createTRPCRouter({
     )
     .mutation(({ ctx, input }) => {
       return ctx.prisma.task.update({
-        where: { id: input.id, userId: input.userId },
+        where: { id: input.id, user_id: input.userId },
         data: { title: input.title, isCompleted: input.isCompleted },
       });
     }),
