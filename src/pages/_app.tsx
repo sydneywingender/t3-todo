@@ -3,13 +3,16 @@ import { api } from "~/utils/api";
 import "~/styles/globals.css";
 import { Toaster } from "~/components/ui/toaster";
 import { ThemeProvider } from "~/components/theme-provider";
+import Layout from "~/components/layout";
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <>
       <ThemeProvider attribute="class" defaultTheme="light">
-        <Component {...pageProps} />
-        <Toaster />
+        <Layout>
+          <Component {...pageProps} />
+          <Toaster />
+        </Layout>
       </ThemeProvider>
     </>
   );
