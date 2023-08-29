@@ -7,16 +7,13 @@ import Layout from "~/components/layout";
 import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import type { Session } from "@supabase/auth-helpers-nextjs";
 import { useState } from "react";
-import { SessionContextProvider, useUser } from "@supabase/auth-helpers-react";
+import { SessionContextProvider } from "@supabase/auth-helpers-react";
 type Props = {
   initialSession: Session;
 };
 
 const MyApp: AppType<Props> = ({ Component, pageProps }) => {
   const [supabaseClient] = useState(() => createPagesBrowserClient());
-  const user = useUser();
-
-  console.log(user);
 
   return (
     <>

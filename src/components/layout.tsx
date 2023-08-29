@@ -10,7 +10,7 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <main className="flex h-screen w-screen flex-col items-center justify-start">
-      <Header hidden={!user} />
+      {user && <Header />}
       <div className="flex h-full w-full max-w-xl flex-col gap-4 p-4">
         {children}
       </div>

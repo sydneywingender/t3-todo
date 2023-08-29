@@ -11,14 +11,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/ui/dropdown-menu";
-import { toast, useToast } from "~/components/ui/use-toast";
+import { toast } from "~/components/ui/use-toast";
 import { cn } from "~/utils/utils";
 
-type HeaderProps = {
-  hidden?: boolean;
-};
-
-export default function Header({ hidden }: HeaderProps) {
+export default function Header() {
   const { setTheme } = useTheme();
   const router = useRouter();
   const user = useUser();
@@ -46,12 +42,7 @@ export default function Header({ hidden }: HeaderProps) {
   }
 
   return (
-    <header
-      className={cn(
-        "flex w-full items-center justify-between border-b px-4 py-4 shadow-sm",
-        hidden && "hidden"
-      )}
-    >
+    <header className="flex w-full items-center justify-between border-b px-4 py-4 shadow-sm">
       <Logo />
 
       <DropdownMenu>

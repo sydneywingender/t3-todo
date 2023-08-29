@@ -1,7 +1,7 @@
-import { useSessionContext } from "@supabase/auth-helpers-react";
+import { useSessionContext, useUser } from "@supabase/auth-helpers-react";
 import { CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import Logo from "~/components/logo";
@@ -24,6 +24,7 @@ type Input = {
 
 export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
+  const user = useUser();
   const router = useRouter();
 
   const supabase = useSessionContext().supabaseClient;
@@ -50,6 +51,13 @@ export default function Auth() {
     }
     setIsLoading(false);
   };
+
+  useEffect(() => {
+    console.log(user);
+    if (user) {
+      router.push("/");
+    }
+  }, [user, router]);
 
   return (
     <>
