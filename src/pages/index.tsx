@@ -77,7 +77,7 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="text-3xl font-semibold">All tasks</h1>
+      <h1>All tasks</h1>
       <Card>
         <CardContent className="flex items-center justify-between p-4">
           <form className="flex w-full gap-4" onSubmit={(e) => handleCreate(e)}>

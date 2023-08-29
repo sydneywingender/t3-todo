@@ -47,13 +47,20 @@
     --input: 215 5% 40%;
     --ring: 263.4 70% 50.4%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1 {
+    @apply text-3xl font-semibold;
+  }
+
+  h2 {
+    @apply text-xl font-bold;
   }
 }
