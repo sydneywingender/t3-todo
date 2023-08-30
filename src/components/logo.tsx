@@ -11,8 +11,8 @@ export default function Logo({ classNames }: LogoProps) {
       <div
         className={cn(
           `flex items-center justify-center gap-2 rounded-full
-          border-2 border-primary bg-gradient-to-r from-violet-300
-          to-purple-200 px-6 py-2 text-primary`,
+          bg-gradient-to-r from-primary to-purple-900
+          px-6 py-2 text-white`,
           classNames
         )}
       >

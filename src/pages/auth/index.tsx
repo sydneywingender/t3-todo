@@ -53,7 +53,6 @@ export default function Auth() {
   };
 
   useEffect(() => {
-    console.log(user);
     if (user) {
       router.push("/");
     }

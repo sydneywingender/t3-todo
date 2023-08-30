@@ -30,8 +30,8 @@ export default function Home() {
         setCreateInput("");
         void ctx.tasks.getTasksFromUser.invalidate();
       },
-      onError: () => {
-        console.log("Error!");
+      onError: (error) => {
+        console.log(error.message);
       },
     });
 
@@ -45,21 +45,20 @@ export default function Home() {
         });
         void ctx.tasks.getTasksFromUser.invalidate();
       },
-      onError: () => {
-        console.log("Error!");
+      onError: (error) => {
+        console.log(error.message);
       },
     });
 
   const { mutate: updateTask, isLoading: isUpdating } =
     api.tasks.update.useMutation({
       onSuccess: () => {
-        console.log("Success!");
         setEditingTask("");
         setEditingValue("");
         void ctx.tasks.getTasksFromUser.invalidate();
       },
-      onError: () => {
-        console.log("Error!");
+      onError: (error) => {
+        console.log(error.message);
       },
     });
 
